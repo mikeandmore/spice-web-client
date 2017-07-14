@@ -34,12 +34,14 @@ wdi.Keymap = {
      * @returns {*}
      */
     getScanCodes: function(e) {
+	var sc = []
+        console.log(e);
 		if (e['hasScanCode']) {
 			return e['scanCode'];
 		} else if (this.handledByCtrlKeyCode(e['type'], e['keyCode'], e['generated'])) {// before doing anything else we check if the event about to be handled has to be intercepted
             return this.getScanCodeFromKeyCode(e['keyCode'], e['type'], this.ctrlKeymap, this.reservedCtrlKeymap);
-        } else if (this.handledByCharmap(e['type'])) {
-            return this.getScanCodesFromCharCode(e['charCode']);
+        } else if (e['type'].startsWith('key') && (sc = this.getScanCodesFromCharCode(e['keyCode'], e['type'])).length > 0) {
+            return sc;
         } else if (this.handledByNormalKeyCode(e['type'], e['keyCode'])) {
             return this.getScanCodeFromKeyCode(e['keyCode'], e['type'], this.keymap);
         } else {
@@ -108,14 +110,18 @@ wdi.Keymap = {
         return false;
     },
 
-    handledByCharmap: function(type) {
+    handledByCharmap: function(charCode, type) {
+	/*
         if (type === 'inputmanager') return true;
         else return false;
+	*/
     },
 
-    getScanCodesFromCharCode: function(charCode) {
+    getScanCodesFromCharCode: function(charCode, type) {
         var scanCode = this.charmap[String.fromCharCode(charCode)];
         if (scanCode === undefined) scanCode = [];
+	if (type === 'keydown') scanCode = scanCode.slice(0, scanCode.length / 2);
+	else if (type === 'keyup') scanCode = scanCode.slice(scanCode.length / 2);
         return scanCode;
     },
 

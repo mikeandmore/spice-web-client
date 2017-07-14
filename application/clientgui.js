@@ -79,8 +79,8 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 		this.magnifierBackground = window.$('<img/>');
 		this.magnifierBackground.attr('src', 'resources/magnifier.png');
 		this.initSound();
-		this.inputManager = c.inputManager || new wdi.InputManager({ stuckKeysHandler: this.stuckKeysHandler, window: $(window)});
-		this.inputManager.setCurrentWindow(window);
+		// this.inputManager = c.inputManager || new wdi.InputManager({ stuckKeysHandler: this.stuckKeysHandler, window: $(window)});
+		// this.inputManager.setCurrentWindow(window);
 	},
 
 	setLayer: function(layer) {
@@ -99,7 +99,7 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 	},
 
 	releaseAllKeys: function() {
-		this.stuckKeysHandler.releaseAllKeys();
+		// this.stuckKeysHandler.releaseAllKeys();
 	},
 
 	getContext: function(surface_id) {
@@ -314,17 +314,18 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 		var documentDOM = window.$(window.document);
 		documentDOM.unbind('keydown', this.handleKey);
 		documentDOM.unbind('keyup', this.handleKey);
-		documentDOM.unbind('keypress', this.handleKey);
-		this.inputManager.disable();
+
+		// documentDOM.unbind('keypress', this.handleKey);
+		// this.inputManager.disable();
 	},
 
 	enableKeyboard: function() {
 		var self = this,
 			documentDOM = window.$(window.document);
 		documentDOM['keydown']([self], this.handleKey);
-		documentDOM['keypress']([self], this.handleKey);
+		// documentDOM['keypress']([self], this.handleKey);
 		documentDOM['keyup']([self], this.handleKey);
-		this.inputManager.enable();
+		// this.inputManager.enable();
 	},
 
 	setCanvasMargin: function(canvasMargin) {
@@ -549,6 +550,7 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 				this.fire('input', [event, params]);
 			}
 		} else {
+/*
 			if (event.indexOf('key') > -1) { // it's a keyEvent
 				this.stuckKeysHandler.checkSpecialKey(event, params[0]['keyCode']);
 				var val = this.inputManager.getValue();
@@ -556,6 +558,7 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 					params = this.inputManager.manageChar(val, params);
 				}
 			}
+*/
 			this.fire('input', [event, params]);
 		}
 	},
@@ -571,9 +574,9 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 	handleKey: function(e) {
 		e.data[0].generateEvent.call(e.data[0], e.type, [e]);
 
-		if (wdi.Keymap.isInKeymap(e.keyCode) && e.type !== "keypress") {
+		// if (wdi.Keymap.isInKeymap(e.keyCode) && e.type !== "keypress") {
 			e.preventDefault();
-		}
+		//}
 		//e.data[0].stuckKeysHandler.handleStuckKeys(e);
 	},
 
