@@ -1,33 +1,33 @@
 /*
- eyeOS Spice Web Client
-Copyright (c) 2015 eyeOS S.L.
+   eyeOS Spice Web Client
+   Copyright (c) 2015 eyeOS S.L.
 
-Contact Jose Carlos Norte (jose@eyeos.com) for more information about this software.
+   Contact Jose Carlos Norte (jose@eyeos.com) for more information about this software.
 
-This program is free software; you can redistribute it and/or modify it under
-the terms of the GNU Affero General Public License version 3 as published by the
-Free Software Foundation.
- 
-This program is distributed in the hope that it will be useful, but WITHOUT
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
-details.
- 
-You should have received a copy of the GNU Affero General Public License
-version 3 along with this program in the file "LICENSE".  If not, see 
-<http://www.gnu.org/licenses/agpl-3.0.txt>.
- 
-See www.eyeos.org for more details. All requests should be sent to licensing@eyeos.org
- 
-The interactive user interfaces in modified source and object code versions
-of this program must display Appropriate Legal Notices, as required under
-Section 5 of the GNU Affero General Public License version 3.
- 
-In accordance with Section 7(b) of the GNU Affero General Public License version 3,
-these Appropriate Legal Notices must retain the display of the "Powered by
-eyeos" logo and retain the original copyright notice. If the display of the 
-logo is not reasonably feasible for technical reasons, the Appropriate Legal Notices
-must display the words "Powered by eyeos" and retain the original copyright notice. 
+   This program is free software; you can redistribute it and/or modify it under
+   the terms of the GNU Affero General Public License version 3 as published by the
+   Free Software Foundation.
+   
+   This program is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+   FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
+   details.
+   
+   You should have received a copy of the GNU Affero General Public License
+   version 3 along with this program in the file "LICENSE".  If not, see 
+   <http://www.gnu.org/licenses/agpl-3.0.txt>.
+   
+   See www.eyeos.org for more details. All requests should be sent to licensing@eyeos.org
+   
+   The interactive user interfaces in modified source and object code versions
+   of this program must display Appropriate Legal Notices, as required under
+   Section 5 of the GNU Affero General Public License version 3.
+   
+   In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+   these Appropriate Legal Notices must retain the display of the "Powered by
+   eyeos" logo and retain the original copyright notice. If the display of the 
+   logo is not reasonably feasible for technical reasons, the Appropriate Legal Notices
+   must display the words "Powered by eyeos" and retain the original copyright notice. 
  */
 
 wdi.SPICE_INPUT_MOTION_ACK_BUNCH = 8;
@@ -68,10 +68,10 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 			'width': 150,
 			'height': 150
 		}).css({
-				'position': 'absolute',
-				'left': '0px',
-				'top': '0px'
-			});
+			'position': 'absolute',
+			'left': '0px',
+			'top': '0px'
+		});
 		this.stuckKeysHandler = c.stuckKeysHandler || new wdi.StuckKeysHandler();
 		this.stuckKeysHandler.addListener('inputStuck', this._sendInput.bind(this), this);
 
@@ -162,16 +162,16 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 				width: window['width'],
 				height: window['height']
 			}).css({
-					display: window['iconic'] ? 'none' : 'block'
-				})[0],
+				display: window['iconic'] ? 'none' : 'block'
+			})[0],
 			'eventLayer': evtlayer,
 			'info': window,
 			'position': 0
 		};
 		//we have the main area drawn?
-		if (this.canvas[this.mainCanvas]) {
-			this._fillSubCanvasFromWindow(window);
-		}
+			if (this.canvas[this.mainCanvas]) {
+				this._fillSubCanvasFromWindow(window);
+			}
 		return [this.subCanvas[window['hwnd']]];
 	},
 
@@ -295,13 +295,13 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 		}
 
 		//this goes here?
-		if (this.firstTime && this.clipboardEnabled) {
-			var self = this;
-			$(document).bind('paste', function(event) {
-				self.fire('paste', event.originalEvent.clipboardData.getData('text/plain'));
-			});
-			this.firstTime = false;
-		}
+			if (this.firstTime && this.clipboardEnabled) {
+				var self = this;
+				$(document).bind('paste', function(event) {
+					self.fire('paste', event.originalEvent.clipboardData.getData('text/plain'));
+				});
+				this.firstTime = false;
+			}
 
 
 		//notify about resolution
@@ -340,10 +340,10 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 			cursor: 'default',
 			position: 'absolute'
 		}).attr({
-				id: event_id,
-				width: width,
-				height: height
-			});
+			id: event_id,
+			width: width,
+			height: height
+		});
 
 		if (window['bowser']['firefox']) {
 			eventLayer.attr('contentEditable', true);
@@ -424,7 +424,7 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 					150,
 					150
 				);
-//				//draw the background
+				//				//draw the background
 				ctx.drawImage(self.magnifierBackground[0], 0, 0);
 				ctx.restore();
 				//empty magnifier
@@ -470,33 +470,33 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 		});
 
 		//if (!Modernizr.touch) {
-			eventLayer['mouseup'](function(event) {
-				var button = event.button;
+		eventLayer['mouseup'](function(event) {
+			var button = event.button;
 
-				self.generateEvent.call(self, 'mouseup', button);
-				self.mouse_status = 0;
-				event.preventDefault();
-			});
+			self.generateEvent.call(self, 'mouseup', button);
+			self.mouse_status = 0;
+			event.preventDefault();
+		});
 
-			eventLayer['mousedown'](function(event) {
-				var button = event.button;
+		eventLayer['mousedown'](function(event) {
+			var button = event.button;
 
-				self.generateEvent.call(self, 'mousedown', button);
-				self.mouse_status = 1;
-				event.preventDefault();
-			});
+			self.generateEvent.call(self, 'mousedown', button);
+			self.mouse_status = 1;
+			event.preventDefault();
+		});
 
-			eventLayer['mousemove'](function(event) {
-				var x = event.pageX;
-				var y = event.pageY;
-				self.generateEvent.call(self, 'mousemove', [x + self.clientOffsetX, y + self.clientOffsetY, self.mouse_status]);
-				event.preventDefault();
-			});
+		eventLayer['mousemove'](function(event) {
+			var x = event.pageX;
+			var y = event.pageY;
+			self.generateEvent.call(self, 'mousemove', [x + self.clientOffsetX, y + self.clientOffsetY, self.mouse_status]);
+			event.preventDefault();
+		});
 
-			eventLayer.bind('contextmenu', function(event) {
-				event.preventDefault();
-				return false;
-			});
+		eventLayer.bind('contextmenu', function(event) {
+			event.preventDefault();
+			return false;
+		});
 		//}
 
 		var mouseEventPause = false;
@@ -537,8 +537,8 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 		$('<div/>', {
 			id: 'error'
 		}).html(message).css({
-				'background-color': '#ff4141'
-			}).appendTo('body');
+			'background-color': '#ff4141'
+		}).appendTo('body');
 
 		setTimeout("$('#error').remove()", 2000);
 	},
@@ -550,15 +550,15 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 				this.fire('input', [event, params]);
 			}
 		} else {
-/*
-			if (event.indexOf('key') > -1) { // it's a keyEvent
-				this.stuckKeysHandler.checkSpecialKey(event, params[0]['keyCode']);
-				var val = this.inputManager.getValue();
-				if (val) {
-					params = this.inputManager.manageChar(val, params);
-				}
-			}
-*/
+			/*
+			   if (event.indexOf('key') > -1) { // it's a keyEvent
+			   this.stuckKeysHandler.checkSpecialKey(event, params[0]['keyCode']);
+			   var val = this.inputManager.getValue();
+			   if (val) {
+			   params = this.inputManager.manageChar(val, params);
+			   }
+			   }
+			 */
 			this.fire('input', [event, params]);
 		}
 	},
@@ -575,7 +575,7 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 		e.data[0].generateEvent.call(e.data[0], e.type, [e]);
 
 		// if (wdi.Keymap.isInKeymap(e.keyCode) && e.type !== "keypress") {
-			e.preventDefault();
+		e.preventDefault();
 		//}
 		//e.data[0].stuckKeysHandler.handleStuckKeys(e);
 	},
@@ -595,48 +595,48 @@ wdi.ClientGui = $.spcExtend(wdi.EventObject.prototype, {
 
 	initSound: function() {
 		var self = this;
-//		if (!Modernizr.touch) {
-			this.soundStarted = true;
-			window.setTimeout(function() {
-				self.fire('startAudio');
-			}, 100);
-/*		} else {
-			var $button = $('<button>Start</button>', {id: "startAudio"}).css({
-				padding: "10px 25px",
-				fontSize: "25px",
-				fontFamily: "Verdana",
-				cursor: "pointer",
-				margin: "0 auto"
-			}).click(function() {
-					self.soundStarted = true;
-					self.fire('startAudio');
-					$('#soundButtonContainer').remove();
-				});
+		//		if (!Modernizr.touch) {
+		this.soundStarted = true;
+		window.setTimeout(function() {
+			self.fire('startAudio');
+		}, 100);
+		/*		} else {
+		   var $button = $('<button>Start</button>', {id: "startAudio"}).css({
+		   padding: "10px 25px",
+		   fontSize: "25px",
+		   fontFamily: "Verdana",
+		   cursor: "pointer",
+		   margin: "0 auto"
+		   }).click(function() {
+		   self.soundStarted = true;
+		   self.fire('startAudio');
+		   $('#soundButtonContainer').remove();
+		   });
 
-			var $messageContainer = $('<div id="messageContainer"><p>Click to start using your virtual session:</p></div>').css({
-				color: "white",
-				textAlign: "center",
-				fontSize: "25px",
-				fontFamily: "Verdana",
-				marginTop: "75px"
-			});
+		   var $messageContainer = $('<div id="messageContainer"><p>Click to start using your virtual session:</p></div>').css({
+		   color: "white",
+		   textAlign: "center",
+		   fontSize: "25px",
+		   fontFamily: "Verdana",
+		   marginTop: "75px"
+		   });
 
-			var $container = $('<div></div>', {id: "soundButtonContainer"});
+		   var $container = $('<div></div>', {id: "soundButtonContainer"});
 
-			$button.appendTo($messageContainer);
-			$messageContainer.appendTo($container);
-			$container.appendTo('body');
+		   $button.appendTo($messageContainer);
+		   $messageContainer.appendTo($container);
+		   $container.appendTo('body');
 
-			$container.css({
-				position: 'absolute',
-				zIndex: 999999999,
-				top: 0,
-				left: 0,
-				width: "100%",
-				height: document.height,
-				backgroundColor: "black"
-			});
-		}*/
+		   $container.css({
+		   position: 'absolute',
+		   zIndex: 999999999,
+		   top: 0,
+		   left: 0,
+		   width: "100%",
+		   height: document.height,
+		   backgroundColor: "black"
+		   });
+		   }*/
 	}
 
 });
